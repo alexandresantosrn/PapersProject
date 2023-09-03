@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navbar :logo="logo_src" :alt="app_name"/>
+    <router-view/>
     <Footer />
   </div>
   
