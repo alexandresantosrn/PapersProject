@@ -23,7 +23,7 @@
 
 <style scoped>
     #users-table {
-        max-width: 800px;
+        max-width: 500px;
         margin: 0 auto;
     }
 
@@ -42,7 +42,7 @@
 
     #users-table-heading div,
     .users-table-row div {
-        width: 19%;
+        width: 39%;
     }
     
     .users-table-row {
