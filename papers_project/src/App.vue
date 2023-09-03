@@ -12,8 +12,13 @@ export default {
   name: 'App',
   components: {
     Footer
-  }
-  
+  },
+  data() {
+    return {
+      logo_src: '/img/files.png',
+      app_name: 'Papers Project'
+    }
+  }  
 }
 </script>
 
