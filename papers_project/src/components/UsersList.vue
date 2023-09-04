@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         async getUsuarios() {
-           const req = await axios('http://localhost:8081/usuarios');                  
+           const req = await fetch('http://localhost:8081/usuarios');                  
            const data = await req.json();
            this.users = data;           
         }
