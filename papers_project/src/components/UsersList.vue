@@ -6,10 +6,9 @@
             <div>Papéis:</div>          
         </div>
         <div id="users-table-rows">
-            <div class="users-table-row">
-                <div class="users-number"></div>
-                    <div>Márcio Passos</div>
-                
+            <div class="users-table-row" v-for="user in users" :key="user.id">
+                <div class="users-number">{{ user.id }}</div>
+                    <div>{{ user.nome }}</div>                
                     <div>
                         <ul>
                             <li>Gestor</li>
@@ -20,6 +19,27 @@
         </div>
     </div>  
 </template>
+
+<script>
+export default {
+    name: 'Users',
+    data() {
+        return {
+            users: null            
+        }
+    },
+    methods: {
+        async getUsuarios() {
+           const req = await axios('http://localhost:8081/usuarios');                  
+           const data = await req.json();
+           this.users = data;           
+        }
+    },
+    mounted() {
+        this.getUsuarios();
+    }
+}
+</script>
 
 <style scoped>
     #users-table {
