@@ -11,8 +11,7 @@
                     <div>{{ user.nome }}</div>                
                     <div>
                         <ul>
-                            <li>Gestor</li>
-                            <li>Administrador</li>                        
+                            <li v-for="(papel, index) in user.papeis" :key="index">{{ papel.descricao }}</li>                                                   
                         </ul>
                     </div>                              
             </div>
