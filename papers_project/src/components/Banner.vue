@@ -1,18 +1,26 @@
 <template>
     <div id="banner">
-        <div class="sessions">       
-            <div id="users-list">
-                <img :src="users_list_src" :alt="users_list_alt" class="img-users-list">                
-                LISTAR USUÁRIOS               
-            </div>
-            <div id="create-users">
-                <img :src="add_user_src" :alt="add_user_alt" class="img-users-list"> 
-                CRIAR USUÁRIOS
-            </div>
-            <div id="create-papers">
-                <img :src="add_paper_src" :alt="add_paper_alt" class="img-users-list"> 
-                CRIAR PAPÉIS
-            </div>
+        <div class="sessions">            
+            <router-link to="/">
+                <div id="users-list" @click="listUsers()">                    
+                    <img :src="users_list_src" :alt="users_list_alt" class="img-users-list">                
+                    LISTAR USUÁRIOS                                
+                </div>
+            </router-link>
+
+            <router-link to="/">
+                <div id="create-users">
+                    <img :src="add_user_src" :alt="add_user_alt" class="img-users-list"> 
+                    CRIAR USUÁRIOS
+                </div>
+            </router-link>
+
+            <router-link to="/">
+                <div id="create-papers">
+                    <img :src="add_paper_src" :alt="add_paper_alt" class="img-users-list"> 
+                    CRIAR PAPÉIS
+                </div>
+            </router-link>
         </div>
     </div>    
 </template>
@@ -27,7 +35,19 @@ export default {
             add_user_src: '/img/add-user.png',
             add_user_alt: 'Adicionar Usuário',
             add_paper_src: '/img/add-paper.png',
-            add_paper_alt: 'Adicionar Papel'
+            add_paper_alt: 'Adicionar Papel',
+            show_users: false,
+            show_add_user: false,
+            show_add_paper: false
+        }
+    },
+    methods: {
+        listUsers() {
+            this.show_users = true;
+            this.show_add_user = false;
+            this.show_add_paper = false;
+            
+            this.$emit('list_users', this.show_users);
         }
     }
 }
@@ -43,6 +63,11 @@ export default {
     .sessions {
         margin: auto;
         display: flex;
+    }
+
+    .sessions a {
+        color: black;
+        text-decoration: none;
     }
 
     .img-box2 {
