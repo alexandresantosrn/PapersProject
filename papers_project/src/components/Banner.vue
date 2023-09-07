@@ -2,21 +2,21 @@
     <div id="banner">
         <div class="sessions">            
             <router-link to="/">
-                <div id="users-list" @click="listUsers()">                    
+                <div id="users-list" @click="listUsers(), mudarCorUsers()" :style="{ backgroundColor: colorUsers}">                    
                     <img :src="users_list_src" :alt="users_list_alt" class="img-users-list">                
                     LISTAR USUÁRIOS                                
                 </div>
             </router-link>
 
             <router-link to="/">
-                <div id="create-users" @click="createUsers()">
+                <div id="create-users" @click="createUsers(), mudarCorUser()" :style="{ backgroundColor: colorUser}">
                     <img :src="add_user_src" :alt="add_user_alt" class="img-users-list"> 
                     CRIAR USUÁRIOS
                 </div>
             </router-link>
 
             <router-link to="/">
-                <div id="create-papers" @click="createPapers()">
+                <div id="create-papers" @click="createPapers(), mudarCorPapers()" :style="{ backgroundColor: colorPaper}">
                     <img :src="add_paper_src" :alt="add_paper_alt" class="img-users-list"> 
                     CRIAR PAPÉIS
                 </div>
@@ -38,7 +38,10 @@ export default {
             add_paper_alt: 'Adicionar Papel',
             show_users: false,
             show_add_user: false,
-            show_add_paper: false
+            show_add_paper: false,
+            colorUsers: 'white',
+            colorUser: 'white',
+            colorPaper: 'white'           
         }
     },
     methods: {
@@ -62,6 +65,21 @@ export default {
             this.show_add_paper = true; 
             
             this.$emit('create_papers', this.show_add_paper);
+        },
+        mudarCorUsers() {
+            this.colorUsers = '#FFFFE0', 
+            this.colorUser = 'White',
+            this.colorPaper = 'White'          
+        },
+        mudarCorUser() {
+            this.colorUsers = 'White',
+            this.colorUser = '#FFFFE0', 
+            this.colorPaper = 'White'          
+        },
+        mudarCorPapers() {
+            this.colorUsers = 'White', 
+            this.colorUser = 'White',
+            this.colorPaper = '#FFFFE0'          
         }
     }
 }
@@ -82,7 +100,7 @@ export default {
     .sessions a {
         color: black;
         text-decoration: none;
-    }
+    }   
 
     .img-box2 {
         height: 85px;   
