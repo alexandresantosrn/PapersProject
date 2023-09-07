@@ -2,6 +2,7 @@
     <div id="banner">
         <div class="sessions">       
             <div id="users-list">
+                <img :src="users_list_src" :alt="users_list_alt" id="img-users-list">                
                 LISTAR USUÁRIOS               
             </div>
             <div id="create-users">
@@ -16,7 +17,13 @@
 
 <script>
 export default {
-    name: 'Banner'
+    name: 'Banner',
+    data() {
+        return {
+            users_list_src: '/img/users-list.png',
+            users_list_alt: "Listar Usuários"
+        }
+    }
 }
 </script>
 
@@ -32,6 +39,15 @@ export default {
         display: flex;
     }
 
+    .img-box2 {
+        height: 85px;   
+        width: 115px;
+        margin: 5px;       
+        border: 2px solid black;
+        display: flex;
+
+    }
+
     #users-list, 
     #create-users,
     #create-papers {
@@ -43,7 +59,12 @@ export default {
         text-align: center; 
         font-size: 12px;
         font-weight: bold;  
-        line-height: 230px;       
+        line-height: 10px;       
+    }
+
+    #img-users-list {
+        height: 80px;
+        margin: 15px;
     }
 
 
