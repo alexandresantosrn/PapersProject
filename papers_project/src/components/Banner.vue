@@ -9,14 +9,14 @@
             </router-link>
 
             <router-link to="/">
-                <div id="create-users">
+                <div id="create-users" @click="createUsers()">
                     <img :src="add_user_src" :alt="add_user_alt" class="img-users-list"> 
                     CRIAR USUÁRIOS
                 </div>
             </router-link>
 
             <router-link to="/">
-                <div id="create-papers">
+                <div id="create-papers" @click="createPapers()">
                     <img :src="add_paper_src" :alt="add_paper_alt" class="img-users-list"> 
                     CRIAR PAPÉIS
                 </div>
@@ -48,6 +48,20 @@ export default {
             this.show_add_paper = false;
             
             this.$emit('list_users', this.show_users);
+        },
+        createUsers(){
+            this.show_users = false;
+            this.show_add_user = true;
+            this.show_add_paper = false;          
+
+            this.$emit('create_users', this.show_add_user);
+        },
+        createPapers(){
+            this.show_users = false;
+            this.show_add_user = false;
+            this.show_add_paper = true; 
+            
+            this.$emit('create_papers', this.show_add_paper);
         }
     }
 }

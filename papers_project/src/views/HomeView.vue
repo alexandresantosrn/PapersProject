@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <h1>Bem-vindo</h1>
-    <Banner v-on:list_users="showUsers"/>
+    <Banner v-on:list_users="showUsers" v-on:create_users="showCreateUser" v-on:create_papers="showCreatePapers"/>
     <div v-show="show_users">
       <UsersList />
     </div>
@@ -29,8 +29,20 @@ export default {
     showUsers(value) {
       this.show_add_user = false;
       this.show_add_paper = false;
-      
+
       this.show_users = value;
+    },
+    showCreateUser(value) {
+      this.show_users = false;
+      this.show_add_paper = false;
+      
+      this.show_add_user = value;      
+    },
+    showCreatePapers(valor) {
+      this.show_users = false;
+      this.show_add_user = false;
+      
+      this.show_add_paper = true;
     }
   }
 
