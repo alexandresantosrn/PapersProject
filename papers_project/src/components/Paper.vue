@@ -24,7 +24,7 @@ export default {
             e.preventDefault();
 
             const data = {
-                nome: this.nome
+                descricao: this.nome
             }
 
             const dataJson = JSON.stringify(data);

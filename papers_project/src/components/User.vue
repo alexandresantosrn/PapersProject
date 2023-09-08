@@ -55,6 +55,9 @@ export default {
     },
     mounted(){
         this.getPapeis()
+    },
+    updated(){
+        this.getPapeis()
     }
 }
 </script>
