@@ -2,20 +2,28 @@
   <div class="main-container">
     <h1>Bem-vindo</h1>
     <Banner v-on:list_users="showUsers" v-on:create_users="showCreateUser" v-on:create_papers="showCreatePapers"/>
+    
     <div v-show="show_users">
       <UsersList />
     </div>
+     
+    <div v-show="show_add_user">
+      <User />
+    </div>
+
     <div v-show="show_add_paper">
       <Paper />
     </div>
+
   </div>
 </template>
 
 <script>
 import Banner from '@/components/Banner.vue';
 import UsersList from '@/components/UsersList.vue';
-import Paper
- from '@/components/Paper.vue';
+import User from '@/components/User.vue';
+import Paper  from '@/components/Paper.vue';
+
 export default {
   name: 'Homeview',
   data() {
@@ -28,6 +36,7 @@ export default {
   components: {   
     Banner,
     UsersList,
+    User,
     Paper
   },
   methods: {
