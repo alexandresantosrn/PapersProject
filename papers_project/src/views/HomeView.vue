@@ -5,13 +5,17 @@
     <div v-show="show_users">
       <UsersList />
     </div>
+    <div v-show="show_add_paper">
+      <Paper />
+    </div>
   </div>
 </template>
 
 <script>
-import UsersList from '@/components/UsersList.vue';
 import Banner from '@/components/Banner.vue';
-
+import UsersList from '@/components/UsersList.vue';
+import Paper
+ from '@/components/Paper.vue';
 export default {
   name: 'Homeview',
   data() {
@@ -21,9 +25,10 @@ export default {
       show_add_paper: false
     }
   },
-  components: {
+  components: {   
+    Banner,
     UsersList,
-    Banner
+    Paper
   },
   methods: {
     showUsers(value) {
