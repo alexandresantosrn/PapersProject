@@ -11,14 +11,14 @@
             <router-link to="/">
                 <div id="create-users" @click="createUsers(), mudarCorUser()" :style="{ backgroundColor: colorUser}">
                     <img :src="add_user_src" :alt="add_user_alt" class="img-users-list"> 
-                    CRIAR USUÁRIOS
+                    CRIAR USUÁRIO
                 </div>
             </router-link>
 
             <router-link to="/">
                 <div id="create-papers" @click="createPapers(), mudarCorPapers()" :style="{ backgroundColor: colorPaper}">
                     <img :src="add_paper_src" :alt="add_paper_alt" class="img-users-list"> 
-                    CRIAR PAPÉIS
+                    CRIAR PAPEL
                 </div>
             </router-link>
         </div>
@@ -128,6 +128,5 @@ export default {
     .img-users-list {
         height: 80px;
         margin: 15px;
-    }
-       
+    }       
 </style>
