@@ -5,8 +5,8 @@
             <input type="text" id="nome" v-model="nome" placeholder="Informe o nome do usuário">
         </div>
 
-        <div id="opcionais-container" class="input-container">
-            <label for="opcionais" id="opcionais-title">Selecione os papéis do usuário:</label>
+        <div id="papeis-container" class="input-container">
+            <label for="papeis" id="papeis-title">Selecione os papéis do usuário:</label>
             <div class="checkbox-container" v-for="papel in papeis" :key="papel.id">
                 <input type="checkbox" name="papeis" v-model="papeis" :value="papel.descricao">
                 <span>{{ papel.descricao }}</span>
@@ -81,6 +81,35 @@ export default {
         padding: 5px 10px;
         border-left: 4px solid #FCBA03;
         width: 300px;
+    }
+
+    input{
+        padding: 5px 10px;  
+        width: 300px;    
+    }
+
+    #papeis-container {
+        flex-direction: row;
+        flex-wrap: wrap;          
+    }
+
+    #papeis-title {
+       width: 100%;     
+    }
+
+    .checkbox-container {
+        display: flex;
+        align-items: flex-start;
+        width: 50%;
+        margin-bottom: 20px;
+    }
+
+    .checkbox-container span, .checkbox-container input {
+        width: auto;
+    }
+
+    .checkbox-container span {
+        margin-left: 6px;       
     }
 
     .submit-btn {
