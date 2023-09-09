@@ -1,40 +1,60 @@
 <template>
-    <form id="paper-form" @submit="createPaper">
-        <div class="input-container">
-            <label for="nome">Nome do Papel:</label>
-            <input type="text" id="nome" v-model="nome" placeholder="Informe a denominação do papel">
-        </div>
+    <div id="paper-container">
+        <Message :msg="msg" v-show="msg" />
+        <form id="paper-form" @submit="createPaper">
+            <div class="input-container">
+                <label for="nome">Nome do Papel:</label>
+                <input type="text" id="nome" v-model="nome" placeholder="Informe a denominação do papel">
+            </div>
 
-        <div class="input container">
-            <input type="submit" class="submit-btn" value="Cadastrar Papel">                    
-        </div>
-    </form>           
+            <div class="input container">
+                <input type="submit" class="submit-btn" value="Cadastrar Papel">                    
+            </div>
+        </form>
+    </div>           
 </template>
 
 <script>
+import Message from './Message.vue';
+
 export default {
     name: 'Paper',
     data() {
         return {
-            nome: null
+            nome: null,
+            msg: null
         }
+    },
+    components: {
+        Message
     },
     methods: {
         async createPaper(e){
             e.preventDefault();
 
+            //capturando dados
             const data = {
                 descricao: this.nome
             }
 
+            //montando Json
             const dataJson = JSON.stringify(data);
 
+            //enviado dados via post
             const req = await fetch('http://localhost:8081/papeis', {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: dataJson
             });   
 
+            //mensagem de exibição após cadastro do papel
+            this.msg = 'Papel cadastrado com sucesso!!'
+
+             //limpar msg após 2 segundos
+             setTimeout(() => this.msg = "", 2000);
+
+            //limpar os campos
+            this.nome = "";
         }
     }
 }
