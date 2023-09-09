@@ -59,7 +59,6 @@ export default {
       this.show_add_paper = true;
     }
   }
-
 }
 </script>
 

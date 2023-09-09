@@ -1,6 +1,7 @@
 <template>
     <div id="paper-container">
         <Message :msg="msg" v-show="msg" />
+        
         <form id="paper-form" @submit="createPaper">
             <div class="input-container">
                 <label for="nome">Nome do Papel:</label>
@@ -50,8 +51,8 @@ export default {
             //mensagem de exibição após cadastro do papel
             this.msg = 'Papel cadastrado com sucesso!!'
 
-             //limpar msg após 2 segundos
-             setTimeout(() => this.msg = "", 2000);
+            //limpar msg após 2 segundos
+            setTimeout(() => this.msg = "", 2000);
 
             //limpar os campos
             this.nome = "";

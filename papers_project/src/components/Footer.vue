@@ -1,5 +1,5 @@
 <template>
-   <footer id="footer">
+    <footer id="footer">
         <p>Papers Project &copy; 2023</p>
     </footer>
 </template>
