@@ -51,8 +51,8 @@ export default {
             //mensagem de exibição após cadastro do papel
             this.msg = 'Papel cadastrado com sucesso!!'
 
-            //limpar msg após 2 segundos
-            setTimeout(() => this.msg = "", 2000);
+            //limpar msg após 3 segundos
+            setTimeout(() => this.msg = "", 3000);
 
             //limpar os campos
             this.nome = "";
@@ -80,6 +80,11 @@ export default {
         padding: 5px 10px;
         border-left: 4px solid #FCBA03;
         width: 300px;
+    }
+
+    input{
+        padding: 5px 10px;  
+        width: 300px;    
     }
 
     .submit-btn {
