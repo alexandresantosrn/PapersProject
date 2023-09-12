@@ -42,7 +42,7 @@ export default {
             const dataJson = JSON.stringify(data);
 
             //enviado dados via post
-            const req = await fetch('http://localhost:8081/papeis', {
+            const req = await fetch('http://localhost:8080/papeis', {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: dataJson

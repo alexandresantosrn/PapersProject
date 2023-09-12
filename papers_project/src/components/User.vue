@@ -49,7 +49,7 @@ export default {
 
             const dataJson = JSON.stringify(data);
 
-            const req = await fetch('http://localhost:8081/usuarios', {
+            const req = await fetch('http://localhost:8080/usuarios', {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: dataJson
@@ -67,7 +67,7 @@ export default {
         },
         async getPapeis(){
 
-            const req = await fetch('http://localhost:8081/papeis');
+            const req = await fetch('http://localhost:8080/papeis');
             const data = await req.json();
             
             this.papeis = data;            

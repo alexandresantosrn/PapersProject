@@ -30,7 +30,7 @@ export default {
     methods: {
         async getUsuarios() {
            //const req = await fetch('http://192.168.2.115:8080/usuarios');    
-           const req = await fetch('http://localhost:8081/usuarios');              
+           const req = await fetch('http://localhost:8080/usuarios');              
            const data = await req.json();
            this.users = data;           
         }
