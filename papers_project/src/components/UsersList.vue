@@ -38,9 +38,9 @@ export default {
     mounted() {
         this.getUsuarios()
     },
-    updated() {
-        this.getUsuarios();
-    }
+    // updated() {
+    //     this.getUsuarios();
+    // }
 }
 </script>
 
