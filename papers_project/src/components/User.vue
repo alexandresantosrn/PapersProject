@@ -1,151 +1,157 @@
 <template>
-    <div id="user-container">
-        <Message :msg="msg" v-show="msg" />
-        <form id="user-form" @submit="createUser">
-            <div class="input-container">
-                <label for="nome">Nome do Usuário:</label>
-                <input type="text" id="nome" v-model="nome" placeholder="Informe o nome do usuário">
-            </div>
+    <div id="app" class="row">
 
-            <div id="papeis-container" class="input-container">
-                <label for="papeis" id="papeis-title">Selecione os papéis do usuário:</label>
-                <div class="checkbox-container" v-for="papel in papeis" :key="papel.id">
-                    <input type="checkbox" name="papeis" v-model="papeislist" :value="papel.descricao">
-                    <span>{{ papel.descricao }}</span>
-                </div>                   
-            </div>
-                
-            <div class="input container">
-                <input type="submit" class="submit-btn" value="Cadastrar Usuário">                    
-            </div>           
-        </form> 
-    </div>              
-</template>
+        <h1>Calculadora de Investimentos</h1>
 
+        <div class="col-md-6">
+            <label for="selicAtual">SELIC Atual: <b>12,25%</b></label>            
+        </div>
+
+        <div class="col-md-6">
+            <label for="taxaSelic">Taxa SELIC / DI (anual): <b>12,15%</b></label>            
+        </div>
+
+        <div class="form-group">
+            <label for="cdi">CDI (em %):</label>
+            <input type="number" class="form-control" v-model="cdi" id="cdi">
+        </div>
+
+        <div class="col-md-6">
+            <label for="investimentoInicial">Investimento Inicial (em R$):</label>
+            <input type="number" class="form-control" v-model="investimentoInicial" id="investimentoInicial">
+        </div>
+
+        <div class="col-md-6">
+            <label for="tempoInvestimento">Tempo de Investimento (Anos):</label>
+            <input type="number" class="form-control" v-model="tempoInvestimento" id="tempoInvestimento">
+        </div>
+
+        <div class="form-group">
+            <label for="tipoInvestimento">Tipo de Investimento</label>
+            <select class="form-control" v-model="tipoInvestimento" id="tipoInvestimento">
+            <option value="CDB">CDB</option>
+            <option value="LCI">LCI</option>
+            </select>
+        </div>
+    
+        <button class="btn btn-primary" @click="calcular">Consultar</button>
+
+        <!-- Resultados -->
+        <div v-if="mostrarResultados">
+            <h4>Resultados:</h4>
+            <p>Total Bruto: R$ {{ formatarNumero(totalBruto) }}</p>
+            <p>Rendimento Parcial: R$ {{ formatarNumero(rendimentoParcial) }}</p>
+            <p>IR: R$ {{ formatarNumero(ir) }}</p>
+            <p>Rendimento Líquido: R$ {{ formatarNumero(rendimentoLiquido) }}</p>
+            <p>Total Líquido: R$ {{ formatarNumero(totalLiquido) }}</p>
+            <p>Aumento de Patrimônio: % {{ formatarNumero(aumentoPatrimonio) }}</p>
+        </div>
+    </div>
+
+  </template>
+  
 <script>
-import Message from './Message.vue';
-
-export default {
-    name: 'User',
-    data() {
-        return {
-            nome: null,
-            papeis: null,
-            papeislist: [],
-            msg: null
-        }
-    },
-    components: {
-        Message
-    },
-    methods: {
-        async createUser(e){
-            e.preventDefault();
-
-            const data = {
-                nome: this.nome,
-                papeis: Array.from(this.papeislist)
-            }
-
-            const dataJson = JSON.stringify(data);
-
-            const req = await fetch('http://localhost:8080/usuarios', {
-                method: 'POST',
-                headers: {'Content-type': 'application/json'},
-                body: dataJson
-            });
-
-            //mensagem de exibição após cadastro do papel
-            this.msg = 'Usuário cadastrado com sucesso!!'
-
-            //limpar msg após 3 segundos
-            setTimeout(() => this.msg = "", 3000);
-
-            //limpar os campos
-            this.nome = "";
-            this.papeislist = "";
+    export default {
+        name: 'Simulador',    
+        data() {
+            return {
+                mostrarResultados: false,
+                totalBruto: '',
+                rendimentoParcial: '',
+                ir: '',
+                rendimentoLiquido: '',
+                totalLiquido: '',
+                taxaIR: '',
+                investimentoInicial: '',
+                tipoInvestimento: '',
+                tempoInvestimento: '', 
+                cdi: '',
+                aumentoPatrimonio: ''
+            };
         },
-        async getPapeis(){
+        methods: {
+            calcular() {
+                this.mostrarResultados = true; 
+                this.calculoTotalBruto();    
+                this.calculoRendimentoParcial();                
+                this.calcularIR();
+                this.calculoRendimentoLiquido();
+                this.calculoTotalLiquido();
+                this.calculoPatrimonio();
+            },
+            calculoTotalBruto() {                
+                this.totalBruto = this.investimentoInicial * Math.pow((1 + ((12.15 / 100) * (this.cdi / 100))), this.tempoInvestimento);
+            },
+            calculoRendimentoParcial(){
+                this.rendimentoParcial = this.totalBruto - this.investimentoInicial; 
+            },            
+            calcularIR() {
+                if (this.tipoInvestimento === 'LCI') {
+                    this.ir = 0.00;
+                }
 
-            const req = await fetch('http://localhost:8080/papeis');
-            const data = await req.json();
-            
-            this.papeis = data;            
+                else if (this.tipoInvestimento === 'CDB') {
+
+                    if (this.tempoInvestimento > 1) {
+                        this.taxaIR = 0.15;
+                    }
+
+                    else if (this.tempoInvestimento === 1) {
+                        this.taxaIR = 0.175;
+                    }
+
+                    this.ir = this.rendimentoParcial * this.taxaIR;
+                }
+                
+            },
+            calculoRendimentoLiquido(){
+                this.rendimentoLiquido = this.rendimentoParcial - this.ir;
+            },
+            calculoTotalLiquido(){
+                this.totalLiquido = this.investimentoInicial + this.rendimentoLiquido;
+            },
+            formatarNumero(numero) {
+                return parseFloat(numero).toFixed(2);
+            },
+            calculoPatrimonio() {
+                this.aumentoPatrimonio = ((this.totalLiquido - this.investimentoInicial) / this.investimentoInicial) * 100;
+            }
         }
-    },
-    mounted(){
-        this.getPapeis()
-    },
-    updated(){
-        this.getPapeis() 
-    }   
-}
+    } 
 </script>
-
+  
 <style scoped>
-    #user-form {
-        max-width: 400px;
-        margin: auto;
+    .form-group {
+        width: 500px;       
+        margin: auto; 
     }
 
-    .input-container {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;        
+    .row {
+        width: 500px;
+        margin: auto;      
     }
 
-    label {
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #222;
-        padding: 5px 10px;
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    label {              
+        margin-bottom: 5px;
+        margin-top: 5px;
+        color: #222;        
         border-left: 4px solid #FCBA03;
-        width: 300px;
+        width: 500px;
+        text-align: left;
+        padding: 8px;      
     }
 
-    input{
-        padding: 5px 10px;  
-        width: 300px;    
+    input {
+        margin-bottom: 10px;
     }
 
-    #papeis-container {
-        flex-direction: row;
-        flex-wrap: wrap;          
-    }
-
-    #papeis-title {
-       width: 100%;     
-    }
-
-    .checkbox-container {
-        display: flex;
-        align-items: flex-start;
-        width: 50%;
-        margin-bottom: 20px;
-    }
-
-    .checkbox-container span, .checkbox-container input {
-        width: auto;
-    }
-
-    .checkbox-container span {
-        margin-left: 6px;       
-    }
-
-    .submit-btn {
-        background-color: #222;
-        color: #FCBA03;
-        font-weight: bold;
-        border: 2px solid #222;
-        padding: 10px;
-        font-size: 14px;
-        margin: 0 auto;
-        cursor: pointer;
-        transition: .5s;
-        display: flex;
-   }
-   .submit-btn:hover {
-        background-color: transparent;
-        color: #222;
-   }   
+    button, h4 {
+        margin-top: 10px;
+    } 
 </style>
+  

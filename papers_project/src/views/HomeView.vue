@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <h1>Bem-vindo</h1>
+   
     <Banner v-on:list_users="showUsers" v-on:create_users="showCreateUser" v-on:create_papers="showCreatePapers"/>
     
     <div v-show="show_users">

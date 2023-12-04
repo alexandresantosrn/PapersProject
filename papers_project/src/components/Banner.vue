@@ -1,26 +1,16 @@
 <template>
     <div id="banner">
         <div class="sessions">            
-            <router-link to="/">
-                <div id="users-list" @click="listUsers(), mudarCorUsers()" :style="{ backgroundColor: colorUsers}">                    
-                    <img :src="users_list_src" :alt="users_list_alt" class="img-users-list">                
-                    LISTAR USUÁRIOS                                
-                </div>
-            </router-link>
+            
 
             <router-link to="/">
                 <div id="create-users" @click="createUsers(), mudarCorUser()" :style="{ backgroundColor: colorUser}">
                     <img :src="add_user_src" :alt="add_user_alt" class="img-users-list"> 
-                    CRIAR USUÁRIO
+                    SIMULADOR
                 </div>
             </router-link>
 
-            <router-link to="/">
-                <div id="create-papers" @click="createPapers(), mudarCorPapers()" :style="{ backgroundColor: colorPaper}">
-                    <img :src="add_paper_src" :alt="add_paper_alt" class="img-users-list"> 
-                    CRIAR PAPEL
-                </div>
-            </router-link>
+           
         </div>
     </div>    
 </template>
@@ -32,7 +22,7 @@ export default {
         return {
             users_list_src: '/img/users-list.png',
             users_list_alt: 'Listar Usuários',
-            add_user_src: '/img/add-user.png',
+            add_user_src: '/img/money-bag.png',
             add_user_alt: 'Adicionar Usuário',
             add_paper_src: '/img/add-paper.png',
             add_paper_alt: 'Adicionar Papel',
